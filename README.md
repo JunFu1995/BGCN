@@ -1,2 +1,2 @@
 # Bayesian-Graph-Convolutional-Network-for-Traffic-Prediction
-codes come in next two or three months. 
+codes will come on June due to preparing one journal paper. 
