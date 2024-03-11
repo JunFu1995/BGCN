@@ -2,12 +2,12 @@
 
 ## TODO
 - [x] ~~Code release~~ 
-- [ ] Release the code for the calculating the posteriori of the road network 
+- [ ] Release the code for calculating the posteriori of the road network 
 
 ## Introduction
 For the convenience of comparison, we integrate the proposed BGCN into an open library for urban spatial-temporal data mining, called [LibCity](https://github.com/LibCity/Bigscity-LibCity?tab=readme-ov-file). 
 
-For the implementation details of BGCN, please see the file libcity/model/traffic_speed_prediction/BGCN.py.
+For the implementation details of BGCN, please see the file "libcity/model/traffic_speed_prediction/BGCN.py".
 
 ## Train and Test
 First, download datasets following the instructions in [LibCity](https://github.com/LibCity/Bigscity-LibCity?tab=readme-ov-file).  
@@ -16,6 +16,7 @@ Second, train and test the model using the following command:
 ```
 python run_model.py --task traffic_state_pred --model BGCN --dataset PeMS07
 ```
+The results are recorded in the folder "libcity/log".
 ## Acknowledgement
 This project is based on [LibCity](https://github.com/LibCity/Bigscity-LibCity?tab=readme-ov-file). Thanks for the awesome work.
 
