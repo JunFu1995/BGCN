@@ -1,0 +1,536 @@
+2023-12-20 21:09:59,534 - INFO - Log directory: ./libcity/log
+2023-12-20 21:09:59,534 - INFO - Begin pipeline, task=traffic_state_pred, model_name=BGCN, dataset_name=PeMS08, exp_id=1289
+2023-12-20 21:09:59,534 - INFO - {'task': 'traffic_state_pred', 'model': 'BGCN', 'dataset': 'PeMS08', 'saved_model': True, 'train': True, 'seed': 0, 'dataset_class': 'TrafficStatePointDataset', 'executor': 'TrafficStateExecutor', 'evaluator': 'TrafficStateEvaluator', 'dropout': 0.3, 'blocks': 4, 'layers': 2, 'apt_layer': True, 'gcn_bool': True, 'addaptadj': True, 'adjtype': 'doubletransition', 'bidir_adj_mx': False, 'randomadj': True, 'aptonly': True, 'kernel_size': 2, 'nhid': 32, 'residual_channels': 32, 'dilation_channels': 32, 'skip_channels': 256, 'end_channels': 512, 'scaler': 'standard', 'load_external': False, 'normal_external': False, 'ext_scaler': 'none', 'add_time_in_day': False, 'add_day_in_week': False, 'max_epoch': 100, 'learner': 'adam', 'learning_rate': 0.001, 'lr_decay': False, 'clip_grad_norm': True, 'max_grad_norm': 5, 'use_early_stop': False, 'batch_size': 64, 'cache_dataset': True, 'num_workers': 0, 'pad_with_last_sample': True, 'train_rate': 0.6, 'eval_rate': 0.2, 'input_window': 12, 'output_window': 12, 'gpu': True, 'gpu_id': 0, 'train_loss': 'none', 'epoch': 0, 'weight_decay': 0, 'lr_epsilon': 1e-08, 'lr_beta1': 0.9, 'lr_beta2': 0.999, 'lr_alpha': 0.99, 'lr_momentum': 0, 'lr_scheduler': 'multisteplr', 'lr_decay_ratio': 0.1, 'steps': [5, 20, 40, 70], 'step_size': 10, 'lr_T_max': 30, 'lr_eta_min': 0, 'lr_patience': 10, 'lr_threshold': 0.0001, 'patience': 50, 'log_level': 'INFO', 'log_every': 1, 'load_best_epoch': True, 'hyper_tune': False, 'metrics': ['MAE', 'MAPE', 'MSE', 'RMSE', 'masked_MAE', 'masked_MAPE', 'masked_MSE', 'masked_RMSE', 'R2', 'EVAR'], 'evaluator_mode': 'single', 'save_mode': ['csv'], 'geo': {'including_types': ['Point'], 'Point': {}}, 'rel': {'including_types': ['geo'], 'geo': {'cost': 'num'}}, 'dyna': {'including_types': ['state'], 'state': {'entity_id': 'geo_id', 'traffic_flow': 'num', 'traffic_occupancy': 'num', 'traffic_speed': 'num'}}, 'data_col': ['traffic_flow'], 'weight_col': 'cost', 'data_files': ['PeMS08'], 'geo_file': 'PeMS08', 'rel_file': 'PeMS08', 'output_dim': 1, 'time_intervals': 300, 'init_weight_inf_or_zero': 'zero', 'set_weight_link_or_dist': 'link', 'calculate_weight_adj': False, 'weight_adj_epsilon': 0.1, 'device': device(type='cuda', index=0), 'exp_id': 1289}
+2023-12-20 21:09:59,537 - INFO - Loaded file PeMS08.geo, num_nodes=170
+2023-12-20 21:09:59,538 - INFO - set_weight_link_or_dist: link
+2023-12-20 21:09:59,538 - INFO - init_weight_inf_or_zero: zero
+2023-12-20 21:09:59,538 - INFO - Loaded file PeMS08.rel, shape=(170, 170)
+2023-12-20 21:09:59,538 - INFO - Loading file PeMS08.dyna
+2023-12-20 21:10:00,344 - INFO - Loaded file PeMS08.dyna, shape=(17856, 170, 1)
+2023-12-20 21:10:00,657 - INFO - Dataset created
+2023-12-20 21:10:00,657 - INFO - x shape: (17833, 12, 170, 1), y shape: (17833, 12, 170, 1)
+2023-12-20 21:10:00,657 - INFO - train	x: (10700, 12, 170, 1), y: (10700, 12, 170, 1)
+2023-12-20 21:10:00,657 - INFO - eval	x: (3566, 12, 170, 1), y: (3566, 12, 170, 1)
+2023-12-20 21:10:00,658 - INFO - test	x: (3567, 12, 170, 1), y: (3567, 12, 170, 1)
+2023-12-20 21:10:04,068 - INFO - Saved at ./libcity/cache/dataset_cache/point_based_PeMS08_12_12_0.6_0.2_standard_64_False_False_False_True.npz
+2023-12-20 21:10:04,125 - INFO - StandardScaler mean: 229.8431355598314, std: 145.62553066568907
+2023-12-20 21:10:04,125 - INFO - NoneScaler
+2023-12-20 21:10:04,495 - INFO - receptive_field: 13
+2023-12-20 21:10:04,614 - INFO - BGCN(
+  (filter_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (gate_convs): ModuleList(
+    (0): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (1): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (2): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (3): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (4): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (5): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+    (6): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1))
+    (7): Conv2d(32, 32, kernel_size=(1, 2), stride=(1, 1), dilation=(2, 2))
+  )
+  (residual_convs): ModuleList(
+    (0-7): 8 x Conv1d(32, 32, kernel_size=(1, 1), stride=(1,))
+  )
+  (skip_convs): ModuleList(
+    (0-7): 8 x Conv2d(32, 256, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (bn): ModuleList(
+    (0-7): 8 x BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+  (gconv): ModuleList(
+    (0-7): 8 x GCN(
+      (nconv): NConv()
+      (mlp): Linear(
+        (mlp): Conv2d(32, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+  (start_conv): Conv2d(1, 32, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_1): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1))
+  (end_conv_2): Conv2d(512, 12, kernel_size=(1, 1), stride=(1, 1))
+)
+2023-12-20 21:10:04,614 - INFO - PA	torch.Size([170, 170])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.0.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.1.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.2.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.3.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.4.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.5.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.6.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - filter_convs.7.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - gate_convs.0.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - gate_convs.0.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - gate_convs.1.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,614 - INFO - gate_convs.1.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.2.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.2.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.3.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.3.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.4.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.4.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.5.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.5.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.6.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.6.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.7.weight	torch.Size([32, 32, 1, 2])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gate_convs.7.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.0.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.0.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.1.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.1.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.2.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.2.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.3.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.3.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.4.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.4.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.5.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.5.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.6.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.6.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.7.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - residual_convs.7.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.0.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.0.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.1.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.1.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.2.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.2.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.3.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.3.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.4.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.4.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.5.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.5.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.6.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.6.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.7.weight	torch.Size([256, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - skip_convs.7.bias	torch.Size([256])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.0.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.0.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.1.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.1.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.2.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.2.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.3.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.3.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.4.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.4.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.5.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.5.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.6.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.6.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.7.weight	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - bn.7.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.0.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.0.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.1.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.1.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.2.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.2.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.3.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.3.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.4.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.4.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,615 - INFO - gconv.5.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - gconv.5.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - gconv.6.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - gconv.6.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - gconv.7.mlp.mlp.weight	torch.Size([32, 32, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - gconv.7.mlp.mlp.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - start_conv.weight	torch.Size([32, 1, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - start_conv.bias	torch.Size([32])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - end_conv_1.weight	torch.Size([512, 256, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - end_conv_1.bias	torch.Size([512])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - end_conv_2.weight	torch.Size([12, 512, 1, 1])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - end_conv_2.bias	torch.Size([12])	cuda:0	True
+2023-12-20 21:10:04,616 - INFO - Total parameter numbers: 284976
+2023-12-20 21:10:04,616 - INFO - You select `adam` optimizer.
+2023-12-20 21:10:04,616 - WARNING - Received none train loss func and will use the loss func defined in the model.
+2023-12-20 21:10:04,616 - INFO - Start training ...
+2023-12-20 21:10:04,616 - INFO - num_batches:168
+2023-12-20 21:10:35,700 - INFO - epoch complete!
+2023-12-20 21:10:35,700 - INFO - evaluating now!
+2023-12-20 21:10:44,253 - INFO - Epoch [0/100] train_loss: 29.0438, val_loss: 21.9649, lr: 0.001000, 39.64s
+2023-12-20 21:10:44,265 - INFO - Saved model at 0
+2023-12-20 21:10:44,265 - INFO - Val loss decrease from inf to 21.9649, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch0.tar
+2023-12-20 21:11:13,996 - INFO - epoch complete!
+2023-12-20 21:11:13,996 - INFO - evaluating now!
+2023-12-20 21:11:21,983 - INFO - Epoch [1/100] train_loss: 21.9294, val_loss: 23.7579, lr: 0.001000, 37.72s
+2023-12-20 21:11:51,139 - INFO - epoch complete!
+2023-12-20 21:11:51,139 - INFO - evaluating now!
+2023-12-20 21:11:59,138 - INFO - Epoch [2/100] train_loss: 20.9341, val_loss: 20.3933, lr: 0.001000, 37.16s
+2023-12-20 21:11:59,158 - INFO - Saved model at 2
+2023-12-20 21:11:59,158 - INFO - Val loss decrease from 21.9649 to 20.3933, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch2.tar
+2023-12-20 21:12:28,307 - INFO - epoch complete!
+2023-12-20 21:12:28,307 - INFO - evaluating now!
+2023-12-20 21:12:36,307 - INFO - Epoch [3/100] train_loss: 19.2586, val_loss: 19.3907, lr: 0.001000, 37.15s
+2023-12-20 21:12:36,318 - INFO - Saved model at 3
+2023-12-20 21:12:36,318 - INFO - Val loss decrease from 20.3933 to 19.3907, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch3.tar
+2023-12-20 21:13:05,357 - INFO - epoch complete!
+2023-12-20 21:13:05,357 - INFO - evaluating now!
+2023-12-20 21:13:13,333 - INFO - Epoch [4/100] train_loss: 18.4779, val_loss: 18.2548, lr: 0.001000, 37.02s
+2023-12-20 21:13:13,344 - INFO - Saved model at 4
+2023-12-20 21:13:13,344 - INFO - Val loss decrease from 19.3907 to 18.2548, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch4.tar
+2023-12-20 21:13:42,420 - INFO - epoch complete!
+2023-12-20 21:13:42,420 - INFO - evaluating now!
+2023-12-20 21:13:50,384 - INFO - Epoch [5/100] train_loss: 18.1848, val_loss: 17.4467, lr: 0.001000, 37.04s
+2023-12-20 21:13:50,395 - INFO - Saved model at 5
+2023-12-20 21:13:50,395 - INFO - Val loss decrease from 18.2548 to 17.4467, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch5.tar
+2023-12-20 21:14:19,428 - INFO - epoch complete!
+2023-12-20 21:14:19,428 - INFO - evaluating now!
+2023-12-20 21:14:27,362 - INFO - Epoch [6/100] train_loss: 17.8373, val_loss: 18.9851, lr: 0.001000, 36.97s
+2023-12-20 21:14:56,513 - INFO - epoch complete!
+2023-12-20 21:14:56,513 - INFO - evaluating now!
+2023-12-20 21:15:04,524 - INFO - Epoch [7/100] train_loss: 17.7989, val_loss: 17.2642, lr: 0.001000, 37.16s
+2023-12-20 21:15:04,535 - INFO - Saved model at 7
+2023-12-20 21:15:04,535 - INFO - Val loss decrease from 17.4467 to 17.2642, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch7.tar
+2023-12-20 21:15:33,572 - INFO - epoch complete!
+2023-12-20 21:15:33,572 - INFO - evaluating now!
+2023-12-20 21:15:41,561 - INFO - Epoch [8/100] train_loss: 17.5344, val_loss: 17.4602, lr: 0.001000, 37.03s
+2023-12-20 21:16:10,613 - INFO - epoch complete!
+2023-12-20 21:16:10,614 - INFO - evaluating now!
+2023-12-20 21:16:18,577 - INFO - Epoch [9/100] train_loss: 17.2613, val_loss: 17.4031, lr: 0.001000, 37.02s
+2023-12-20 21:16:47,909 - INFO - epoch complete!
+2023-12-20 21:16:47,909 - INFO - evaluating now!
+2023-12-20 21:16:55,876 - INFO - Epoch [10/100] train_loss: 17.1802, val_loss: 16.8186, lr: 0.001000, 37.30s
+2023-12-20 21:16:55,887 - INFO - Saved model at 10
+2023-12-20 21:16:55,887 - INFO - Val loss decrease from 17.2642 to 16.8186, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch10.tar
+2023-12-20 21:17:24,632 - INFO - epoch complete!
+2023-12-20 21:17:24,632 - INFO - evaluating now!
+2023-12-20 21:17:32,559 - INFO - Epoch [11/100] train_loss: 16.9934, val_loss: 17.1071, lr: 0.001000, 36.67s
+2023-12-20 21:18:01,375 - INFO - epoch complete!
+2023-12-20 21:18:01,375 - INFO - evaluating now!
+2023-12-20 21:18:09,305 - INFO - Epoch [12/100] train_loss: 16.9417, val_loss: 17.1411, lr: 0.001000, 36.75s
+2023-12-20 21:18:38,187 - INFO - epoch complete!
+2023-12-20 21:18:38,188 - INFO - evaluating now!
+2023-12-20 21:18:46,103 - INFO - Epoch [13/100] train_loss: 16.7886, val_loss: 16.7342, lr: 0.001000, 36.80s
+2023-12-20 21:18:46,114 - INFO - Saved model at 13
+2023-12-20 21:18:46,114 - INFO - Val loss decrease from 16.8186 to 16.7342, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch13.tar
+2023-12-20 21:19:14,926 - INFO - epoch complete!
+2023-12-20 21:19:14,926 - INFO - evaluating now!
+2023-12-20 21:19:22,819 - INFO - Epoch [14/100] train_loss: 16.8172, val_loss: 16.5221, lr: 0.001000, 36.71s
+2023-12-20 21:19:22,830 - INFO - Saved model at 14
+2023-12-20 21:19:22,830 - INFO - Val loss decrease from 16.7342 to 16.5221, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch14.tar
+2023-12-20 21:19:51,659 - INFO - epoch complete!
+2023-12-20 21:19:51,660 - INFO - evaluating now!
+2023-12-20 21:19:59,547 - INFO - Epoch [15/100] train_loss: 16.6836, val_loss: 17.5178, lr: 0.001000, 36.72s
+2023-12-20 21:20:28,355 - INFO - epoch complete!
+2023-12-20 21:20:28,355 - INFO - evaluating now!
+2023-12-20 21:20:36,249 - INFO - Epoch [16/100] train_loss: 16.5543, val_loss: 16.7459, lr: 0.001000, 36.70s
+2023-12-20 21:21:05,130 - INFO - epoch complete!
+2023-12-20 21:21:05,130 - INFO - evaluating now!
+2023-12-20 21:21:13,014 - INFO - Epoch [17/100] train_loss: 16.3853, val_loss: 16.3402, lr: 0.001000, 36.77s
+2023-12-20 21:21:13,026 - INFO - Saved model at 17
+2023-12-20 21:21:13,026 - INFO - Val loss decrease from 16.5221 to 16.3402, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch17.tar
+2023-12-20 21:21:41,924 - INFO - epoch complete!
+2023-12-20 21:21:41,925 - INFO - evaluating now!
+2023-12-20 21:21:49,842 - INFO - Epoch [18/100] train_loss: 16.4237, val_loss: 16.5852, lr: 0.001000, 36.82s
+2023-12-20 21:22:18,798 - INFO - epoch complete!
+2023-12-20 21:22:18,798 - INFO - evaluating now!
+2023-12-20 21:22:26,712 - INFO - Epoch [19/100] train_loss: 16.2851, val_loss: 17.2625, lr: 0.001000, 36.87s
+2023-12-20 21:22:55,609 - INFO - epoch complete!
+2023-12-20 21:22:55,609 - INFO - evaluating now!
+2023-12-20 21:23:03,506 - INFO - Epoch [20/100] train_loss: 16.1692, val_loss: 16.4246, lr: 0.001000, 36.79s
+2023-12-20 21:23:32,432 - INFO - epoch complete!
+2023-12-20 21:23:32,432 - INFO - evaluating now!
+2023-12-20 21:23:40,329 - INFO - Epoch [21/100] train_loss: 16.1630, val_loss: 16.3087, lr: 0.001000, 36.82s
+2023-12-20 21:23:40,340 - INFO - Saved model at 21
+2023-12-20 21:23:40,340 - INFO - Val loss decrease from 16.3402 to 16.3087, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch21.tar
+2023-12-20 21:24:09,217 - INFO - epoch complete!
+2023-12-20 21:24:09,218 - INFO - evaluating now!
+2023-12-20 21:24:17,098 - INFO - Epoch [22/100] train_loss: 15.9936, val_loss: 16.1928, lr: 0.001000, 36.76s
+2023-12-20 21:24:17,109 - INFO - Saved model at 22
+2023-12-20 21:24:17,109 - INFO - Val loss decrease from 16.3087 to 16.1928, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch22.tar
+2023-12-20 21:24:45,917 - INFO - epoch complete!
+2023-12-20 21:24:45,917 - INFO - evaluating now!
+2023-12-20 21:24:53,806 - INFO - Epoch [23/100] train_loss: 16.0230, val_loss: 16.5644, lr: 0.001000, 36.70s
+2023-12-20 21:25:22,668 - INFO - epoch complete!
+2023-12-20 21:25:22,668 - INFO - evaluating now!
+2023-12-20 21:25:30,560 - INFO - Epoch [24/100] train_loss: 15.9482, val_loss: 16.0393, lr: 0.001000, 36.75s
+2023-12-20 21:25:30,570 - INFO - Saved model at 24
+2023-12-20 21:25:30,570 - INFO - Val loss decrease from 16.1928 to 16.0393, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch24.tar
+2023-12-20 21:25:59,546 - INFO - epoch complete!
+2023-12-20 21:25:59,546 - INFO - evaluating now!
+2023-12-20 21:26:07,670 - INFO - Epoch [25/100] train_loss: 15.8355, val_loss: 16.2364, lr: 0.001000, 37.10s
+2023-12-20 21:26:36,709 - INFO - epoch complete!
+2023-12-20 21:26:36,710 - INFO - evaluating now!
+2023-12-20 21:26:44,660 - INFO - Epoch [26/100] train_loss: 15.7677, val_loss: 15.7607, lr: 0.001000, 36.99s
+2023-12-20 21:26:44,672 - INFO - Saved model at 26
+2023-12-20 21:26:44,672 - INFO - Val loss decrease from 16.0393 to 15.7607, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch26.tar
+2023-12-20 21:27:13,557 - INFO - epoch complete!
+2023-12-20 21:27:13,557 - INFO - evaluating now!
+2023-12-20 21:27:21,449 - INFO - Epoch [27/100] train_loss: 15.8242, val_loss: 15.8585, lr: 0.001000, 36.78s
+2023-12-20 21:27:50,418 - INFO - epoch complete!
+2023-12-20 21:27:50,418 - INFO - evaluating now!
+2023-12-20 21:27:58,328 - INFO - Epoch [28/100] train_loss: 15.6801, val_loss: 16.3126, lr: 0.001000, 36.88s
+2023-12-20 21:28:27,224 - INFO - epoch complete!
+2023-12-20 21:28:27,224 - INFO - evaluating now!
+2023-12-20 21:28:35,162 - INFO - Epoch [29/100] train_loss: 15.6654, val_loss: 15.7817, lr: 0.001000, 36.83s
+2023-12-20 21:29:04,197 - INFO - epoch complete!
+2023-12-20 21:29:04,197 - INFO - evaluating now!
+2023-12-20 21:29:12,102 - INFO - Epoch [30/100] train_loss: 15.6846, val_loss: 15.9494, lr: 0.001000, 36.94s
+2023-12-20 21:29:40,920 - INFO - epoch complete!
+2023-12-20 21:29:40,920 - INFO - evaluating now!
+2023-12-20 21:29:48,845 - INFO - Epoch [31/100] train_loss: 15.6116, val_loss: 15.5671, lr: 0.001000, 36.74s
+2023-12-20 21:29:48,856 - INFO - Saved model at 31
+2023-12-20 21:29:48,856 - INFO - Val loss decrease from 15.7607 to 15.5671, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch31.tar
+2023-12-20 21:30:17,869 - INFO - epoch complete!
+2023-12-20 21:30:17,869 - INFO - evaluating now!
+2023-12-20 21:30:25,840 - INFO - Epoch [32/100] train_loss: 15.5374, val_loss: 15.7562, lr: 0.001000, 36.98s
+2023-12-20 21:30:54,634 - INFO - epoch complete!
+2023-12-20 21:30:54,634 - INFO - evaluating now!
+2023-12-20 21:31:02,534 - INFO - Epoch [33/100] train_loss: 15.4829, val_loss: 15.6967, lr: 0.001000, 36.69s
+2023-12-20 21:31:31,866 - INFO - epoch complete!
+2023-12-20 21:31:31,866 - INFO - evaluating now!
+2023-12-20 21:31:39,764 - INFO - Epoch [34/100] train_loss: 15.4500, val_loss: 15.5916, lr: 0.001000, 37.23s
+2023-12-20 21:32:08,608 - INFO - epoch complete!
+2023-12-20 21:32:08,608 - INFO - evaluating now!
+2023-12-20 21:32:16,472 - INFO - Epoch [35/100] train_loss: 15.4663, val_loss: 15.8776, lr: 0.001000, 36.70s
+2023-12-20 21:32:45,331 - INFO - epoch complete!
+2023-12-20 21:32:45,332 - INFO - evaluating now!
+2023-12-20 21:32:53,205 - INFO - Epoch [36/100] train_loss: 15.4000, val_loss: 15.8493, lr: 0.001000, 36.73s
+2023-12-20 21:33:22,064 - INFO - epoch complete!
+2023-12-20 21:33:22,065 - INFO - evaluating now!
+2023-12-20 21:33:29,926 - INFO - Epoch [37/100] train_loss: 15.3559, val_loss: 15.3543, lr: 0.001000, 36.72s
+2023-12-20 21:33:29,937 - INFO - Saved model at 37
+2023-12-20 21:33:29,937 - INFO - Val loss decrease from 15.5671 to 15.3543, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch37.tar
+2023-12-20 21:33:58,841 - INFO - epoch complete!
+2023-12-20 21:33:58,842 - INFO - evaluating now!
+2023-12-20 21:34:06,732 - INFO - Epoch [38/100] train_loss: 15.2878, val_loss: 15.8201, lr: 0.001000, 36.79s
+2023-12-20 21:34:35,562 - INFO - epoch complete!
+2023-12-20 21:34:35,562 - INFO - evaluating now!
+2023-12-20 21:34:43,410 - INFO - Epoch [39/100] train_loss: 15.2681, val_loss: 16.4202, lr: 0.001000, 36.68s
+2023-12-20 21:35:12,255 - INFO - epoch complete!
+2023-12-20 21:35:12,255 - INFO - evaluating now!
+2023-12-20 21:35:20,122 - INFO - Epoch [40/100] train_loss: 15.2482, val_loss: 15.4282, lr: 0.001000, 36.71s
+2023-12-20 21:35:48,935 - INFO - epoch complete!
+2023-12-20 21:35:48,935 - INFO - evaluating now!
+2023-12-20 21:35:56,805 - INFO - Epoch [41/100] train_loss: 15.1850, val_loss: 15.2179, lr: 0.001000, 36.68s
+2023-12-20 21:35:56,815 - INFO - Saved model at 41
+2023-12-20 21:35:56,816 - INFO - Val loss decrease from 15.3543 to 15.2179, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch41.tar
+2023-12-20 21:36:25,626 - INFO - epoch complete!
+2023-12-20 21:36:25,626 - INFO - evaluating now!
+2023-12-20 21:36:33,464 - INFO - Epoch [42/100] train_loss: 15.1278, val_loss: 16.1771, lr: 0.001000, 36.65s
+2023-12-20 21:37:02,272 - INFO - epoch complete!
+2023-12-20 21:37:02,272 - INFO - evaluating now!
+2023-12-20 21:37:10,138 - INFO - Epoch [43/100] train_loss: 15.1844, val_loss: 15.8337, lr: 0.001000, 36.67s
+2023-12-20 21:37:38,922 - INFO - epoch complete!
+2023-12-20 21:37:38,923 - INFO - evaluating now!
+2023-12-20 21:37:46,775 - INFO - Epoch [44/100] train_loss: 15.1069, val_loss: 15.3438, lr: 0.001000, 36.64s
+2023-12-20 21:38:15,565 - INFO - epoch complete!
+2023-12-20 21:38:15,565 - INFO - evaluating now!
+2023-12-20 21:38:23,423 - INFO - Epoch [45/100] train_loss: 15.0716, val_loss: 15.1705, lr: 0.001000, 36.65s
+2023-12-20 21:38:23,433 - INFO - Saved model at 45
+2023-12-20 21:38:23,433 - INFO - Val loss decrease from 15.2179 to 15.1705, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch45.tar
+2023-12-20 21:38:52,210 - INFO - epoch complete!
+2023-12-20 21:38:52,210 - INFO - evaluating now!
+2023-12-20 21:39:00,064 - INFO - Epoch [46/100] train_loss: 15.0703, val_loss: 15.5032, lr: 0.001000, 36.63s
+2023-12-20 21:39:28,816 - INFO - epoch complete!
+2023-12-20 21:39:28,816 - INFO - evaluating now!
+2023-12-20 21:39:36,888 - INFO - Epoch [47/100] train_loss: 15.0150, val_loss: 15.6074, lr: 0.001000, 36.82s
+2023-12-20 21:40:06,296 - INFO - epoch complete!
+2023-12-20 21:40:06,296 - INFO - evaluating now!
+2023-12-20 21:40:14,255 - INFO - Epoch [48/100] train_loss: 15.0132, val_loss: 15.2488, lr: 0.001000, 37.37s
+2023-12-20 21:40:43,305 - INFO - epoch complete!
+2023-12-20 21:40:43,305 - INFO - evaluating now!
+2023-12-20 21:40:51,275 - INFO - Epoch [49/100] train_loss: 14.9508, val_loss: 15.2862, lr: 0.001000, 37.02s
+2023-12-20 21:41:20,297 - INFO - epoch complete!
+2023-12-20 21:41:20,297 - INFO - evaluating now!
+2023-12-20 21:41:28,217 - INFO - Epoch [50/100] train_loss: 14.9702, val_loss: 14.9967, lr: 0.001000, 36.94s
+2023-12-20 21:41:28,228 - INFO - Saved model at 50
+2023-12-20 21:41:28,228 - INFO - Val loss decrease from 15.1705 to 14.9967, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch50.tar
+2023-12-20 21:41:57,081 - INFO - epoch complete!
+2023-12-20 21:41:57,081 - INFO - evaluating now!
+2023-12-20 21:42:04,995 - INFO - Epoch [51/100] train_loss: 14.9580, val_loss: 15.2215, lr: 0.001000, 36.77s
+2023-12-20 21:42:34,004 - INFO - epoch complete!
+2023-12-20 21:42:34,004 - INFO - evaluating now!
+2023-12-20 21:42:41,941 - INFO - Epoch [52/100] train_loss: 14.9009, val_loss: 15.1761, lr: 0.001000, 36.95s
+2023-12-20 21:43:10,815 - INFO - epoch complete!
+2023-12-20 21:43:10,815 - INFO - evaluating now!
+2023-12-20 21:43:18,739 - INFO - Epoch [53/100] train_loss: 14.8534, val_loss: 15.0320, lr: 0.001000, 36.80s
+2023-12-20 21:43:47,781 - INFO - epoch complete!
+2023-12-20 21:43:47,782 - INFO - evaluating now!
+2023-12-20 21:43:55,766 - INFO - Epoch [54/100] train_loss: 14.8620, val_loss: 15.1412, lr: 0.001000, 37.03s
+2023-12-20 21:44:24,782 - INFO - epoch complete!
+2023-12-20 21:44:24,782 - INFO - evaluating now!
+2023-12-20 21:44:32,776 - INFO - Epoch [55/100] train_loss: 14.8663, val_loss: 15.2098, lr: 0.001000, 37.01s
+2023-12-20 21:45:02,274 - INFO - epoch complete!
+2023-12-20 21:45:02,274 - INFO - evaluating now!
+2023-12-20 21:45:10,226 - INFO - Epoch [56/100] train_loss: 14.8380, val_loss: 15.2336, lr: 0.001000, 37.45s
+2023-12-20 21:45:39,026 - INFO - epoch complete!
+2023-12-20 21:45:39,026 - INFO - evaluating now!
+2023-12-20 21:45:47,010 - INFO - Epoch [57/100] train_loss: 14.8041, val_loss: 15.2591, lr: 0.001000, 36.78s
+2023-12-20 21:46:15,928 - INFO - epoch complete!
+2023-12-20 21:46:15,928 - INFO - evaluating now!
+2023-12-20 21:46:23,826 - INFO - Epoch [58/100] train_loss: 14.7494, val_loss: 15.2290, lr: 0.001000, 36.82s
+2023-12-20 21:46:52,703 - INFO - epoch complete!
+2023-12-20 21:46:52,703 - INFO - evaluating now!
+2023-12-20 21:47:00,577 - INFO - Epoch [59/100] train_loss: 14.7793, val_loss: 15.1199, lr: 0.001000, 36.75s
+2023-12-20 21:47:29,382 - INFO - epoch complete!
+2023-12-20 21:47:29,383 - INFO - evaluating now!
+2023-12-20 21:47:37,250 - INFO - Epoch [60/100] train_loss: 14.7451, val_loss: 14.9991, lr: 0.001000, 36.67s
+2023-12-20 21:48:06,121 - INFO - epoch complete!
+2023-12-20 21:48:06,121 - INFO - evaluating now!
+2023-12-20 21:48:13,977 - INFO - Epoch [61/100] train_loss: 14.7048, val_loss: 15.2642, lr: 0.001000, 36.73s
+2023-12-20 21:48:42,837 - INFO - epoch complete!
+2023-12-20 21:48:42,837 - INFO - evaluating now!
+2023-12-20 21:48:50,694 - INFO - Epoch [62/100] train_loss: 14.7322, val_loss: 15.1690, lr: 0.001000, 36.72s
+2023-12-20 21:49:19,481 - INFO - epoch complete!
+2023-12-20 21:49:19,481 - INFO - evaluating now!
+2023-12-20 21:49:27,330 - INFO - Epoch [63/100] train_loss: 14.6753, val_loss: 15.1117, lr: 0.001000, 36.64s
+2023-12-20 21:49:56,167 - INFO - epoch complete!
+2023-12-20 21:49:56,167 - INFO - evaluating now!
+2023-12-20 21:50:04,047 - INFO - Epoch [64/100] train_loss: 14.6808, val_loss: 15.2201, lr: 0.001000, 36.72s
+2023-12-20 21:50:32,854 - INFO - epoch complete!
+2023-12-20 21:50:32,854 - INFO - evaluating now!
+2023-12-20 21:50:40,700 - INFO - Epoch [65/100] train_loss: 14.6741, val_loss: 15.4285, lr: 0.001000, 36.65s
+2023-12-20 21:51:09,482 - INFO - epoch complete!
+2023-12-20 21:51:09,482 - INFO - evaluating now!
+2023-12-20 21:51:17,334 - INFO - Epoch [66/100] train_loss: 14.6599, val_loss: 15.1495, lr: 0.001000, 36.63s
+2023-12-20 21:51:46,202 - INFO - epoch complete!
+2023-12-20 21:51:46,202 - INFO - evaluating now!
+2023-12-20 21:51:54,101 - INFO - Epoch [67/100] train_loss: 14.6447, val_loss: 15.0208, lr: 0.001000, 36.77s
+2023-12-20 21:52:22,976 - INFO - epoch complete!
+2023-12-20 21:52:22,976 - INFO - evaluating now!
+2023-12-20 21:52:30,857 - INFO - Epoch [68/100] train_loss: 14.6123, val_loss: 15.1485, lr: 0.001000, 36.76s
+2023-12-20 21:52:59,664 - INFO - epoch complete!
+2023-12-20 21:52:59,664 - INFO - evaluating now!
+2023-12-20 21:53:07,548 - INFO - Epoch [69/100] train_loss: 14.5920, val_loss: 15.1770, lr: 0.001000, 36.69s
+2023-12-20 21:53:36,361 - INFO - epoch complete!
+2023-12-20 21:53:36,361 - INFO - evaluating now!
+2023-12-20 21:53:44,256 - INFO - Epoch [70/100] train_loss: 14.5814, val_loss: 15.2748, lr: 0.001000, 36.71s
+2023-12-20 21:54:13,106 - INFO - epoch complete!
+2023-12-20 21:54:13,106 - INFO - evaluating now!
+2023-12-20 21:54:20,973 - INFO - Epoch [71/100] train_loss: 14.5538, val_loss: 15.2051, lr: 0.001000, 36.72s
+2023-12-20 21:54:49,777 - INFO - epoch complete!
+2023-12-20 21:54:49,778 - INFO - evaluating now!
+2023-12-20 21:54:57,656 - INFO - Epoch [72/100] train_loss: 14.6048, val_loss: 15.2844, lr: 0.001000, 36.68s
+2023-12-20 21:55:26,557 - INFO - epoch complete!
+2023-12-20 21:55:26,557 - INFO - evaluating now!
+2023-12-20 21:55:34,422 - INFO - Epoch [73/100] train_loss: 14.5554, val_loss: 15.2416, lr: 0.001000, 36.77s
+2023-12-20 21:56:03,247 - INFO - epoch complete!
+2023-12-20 21:56:03,247 - INFO - evaluating now!
+2023-12-20 21:56:11,155 - INFO - Epoch [74/100] train_loss: 14.5552, val_loss: 14.9549, lr: 0.001000, 36.73s
+2023-12-20 21:56:11,166 - INFO - Saved model at 74
+2023-12-20 21:56:11,166 - INFO - Val loss decrease from 14.9967 to 14.9549, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch74.tar
+2023-12-20 21:56:40,049 - INFO - epoch complete!
+2023-12-20 21:56:40,049 - INFO - evaluating now!
+2023-12-20 21:56:47,939 - INFO - Epoch [75/100] train_loss: 14.5303, val_loss: 15.1620, lr: 0.001000, 36.77s
+2023-12-20 21:57:16,825 - INFO - epoch complete!
+2023-12-20 21:57:16,825 - INFO - evaluating now!
+2023-12-20 21:57:24,776 - INFO - Epoch [76/100] train_loss: 14.5217, val_loss: 15.1220, lr: 0.001000, 36.84s
+2023-12-20 21:57:53,700 - INFO - epoch complete!
+2023-12-20 21:57:53,700 - INFO - evaluating now!
+2023-12-20 21:58:01,567 - INFO - Epoch [77/100] train_loss: 14.5274, val_loss: 15.1252, lr: 0.001000, 36.79s
+2023-12-20 21:58:30,389 - INFO - epoch complete!
+2023-12-20 21:58:30,390 - INFO - evaluating now!
+2023-12-20 21:58:38,320 - INFO - Epoch [78/100] train_loss: 14.4633, val_loss: 15.1735, lr: 0.001000, 36.75s
+2023-12-20 21:59:07,209 - INFO - epoch complete!
+2023-12-20 21:59:07,209 - INFO - evaluating now!
+2023-12-20 21:59:15,078 - INFO - Epoch [79/100] train_loss: 14.4587, val_loss: 15.3239, lr: 0.001000, 36.76s
+2023-12-20 21:59:43,985 - INFO - epoch complete!
+2023-12-20 21:59:43,985 - INFO - evaluating now!
+2023-12-20 21:59:51,903 - INFO - Epoch [80/100] train_loss: 14.4822, val_loss: 15.0705, lr: 0.001000, 36.83s
+2023-12-20 22:00:20,797 - INFO - epoch complete!
+2023-12-20 22:00:20,797 - INFO - evaluating now!
+2023-12-20 22:00:28,698 - INFO - Epoch [81/100] train_loss: 14.4602, val_loss: 15.1056, lr: 0.001000, 36.79s
+2023-12-20 22:00:57,563 - INFO - epoch complete!
+2023-12-20 22:00:57,563 - INFO - evaluating now!
+2023-12-20 22:01:05,488 - INFO - Epoch [82/100] train_loss: 14.4298, val_loss: 15.0542, lr: 0.001000, 36.79s
+2023-12-20 22:01:34,370 - INFO - epoch complete!
+2023-12-20 22:01:34,370 - INFO - evaluating now!
+2023-12-20 22:01:42,223 - INFO - Epoch [83/100] train_loss: 14.4193, val_loss: 14.9374, lr: 0.001000, 36.74s
+2023-12-20 22:01:42,234 - INFO - Saved model at 83
+2023-12-20 22:01:42,234 - INFO - Val loss decrease from 14.9549 to 14.9374, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch83.tar
+2023-12-20 22:02:10,986 - INFO - epoch complete!
+2023-12-20 22:02:10,986 - INFO - evaluating now!
+2023-12-20 22:02:18,807 - INFO - Epoch [84/100] train_loss: 14.3995, val_loss: 14.9232, lr: 0.001000, 36.57s
+2023-12-20 22:02:18,818 - INFO - Saved model at 84
+2023-12-20 22:02:18,818 - INFO - Val loss decrease from 14.9374 to 14.9232, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch84.tar
+2023-12-20 22:02:47,648 - INFO - epoch complete!
+2023-12-20 22:02:47,648 - INFO - evaluating now!
+2023-12-20 22:02:55,516 - INFO - Epoch [85/100] train_loss: 14.4027, val_loss: 14.8785, lr: 0.001000, 36.70s
+2023-12-20 22:02:55,527 - INFO - Saved model at 85
+2023-12-20 22:02:55,527 - INFO - Val loss decrease from 14.9232 to 14.8785, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch85.tar
+2023-12-20 22:03:24,340 - INFO - epoch complete!
+2023-12-20 22:03:24,340 - INFO - evaluating now!
+2023-12-20 22:03:32,221 - INFO - Epoch [86/100] train_loss: 14.4196, val_loss: 15.2846, lr: 0.001000, 36.69s
+2023-12-20 22:04:01,106 - INFO - epoch complete!
+2023-12-20 22:04:01,106 - INFO - evaluating now!
+2023-12-20 22:04:09,036 - INFO - Epoch [87/100] train_loss: 14.3699, val_loss: 15.0186, lr: 0.001000, 36.82s
+2023-12-20 22:04:38,003 - INFO - epoch complete!
+2023-12-20 22:04:38,003 - INFO - evaluating now!
+2023-12-20 22:04:45,921 - INFO - Epoch [88/100] train_loss: 14.3905, val_loss: 14.8871, lr: 0.001000, 36.89s
+2023-12-20 22:05:14,859 - INFO - epoch complete!
+2023-12-20 22:05:14,860 - INFO - evaluating now!
+2023-12-20 22:05:22,796 - INFO - Epoch [89/100] train_loss: 14.3311, val_loss: 14.9230, lr: 0.001000, 36.87s
+2023-12-20 22:05:51,745 - INFO - epoch complete!
+2023-12-20 22:05:51,745 - INFO - evaluating now!
+2023-12-20 22:05:59,653 - INFO - Epoch [90/100] train_loss: 14.3401, val_loss: 14.8162, lr: 0.001000, 36.86s
+2023-12-20 22:05:59,665 - INFO - Saved model at 90
+2023-12-20 22:05:59,665 - INFO - Val loss decrease from 14.8785 to 14.8162, saving to ./libcity/cache/1289/model_cache/BGCN_PeMS08_epoch90.tar
+2023-12-20 22:06:28,577 - INFO - epoch complete!
+2023-12-20 22:06:28,577 - INFO - evaluating now!
+2023-12-20 22:06:36,463 - INFO - Epoch [91/100] train_loss: 14.3359, val_loss: 15.3112, lr: 0.001000, 36.80s
+2023-12-20 22:07:05,225 - INFO - epoch complete!
+2023-12-20 22:07:05,225 - INFO - evaluating now!
+2023-12-20 22:07:13,124 - INFO - Epoch [92/100] train_loss: 14.3268, val_loss: 14.9160, lr: 0.001000, 36.66s
+2023-12-20 22:07:42,001 - INFO - epoch complete!
+2023-12-20 22:07:42,001 - INFO - evaluating now!
+2023-12-20 22:07:49,863 - INFO - Epoch [93/100] train_loss: 14.3195, val_loss: 14.8521, lr: 0.001000, 36.74s
+2023-12-20 22:08:18,720 - INFO - epoch complete!
+2023-12-20 22:08:18,720 - INFO - evaluating now!
+2023-12-20 22:08:26,590 - INFO - Epoch [94/100] train_loss: 14.3193, val_loss: 15.1263, lr: 0.001000, 36.73s
+2023-12-20 22:08:55,381 - INFO - epoch complete!
+2023-12-20 22:08:55,381 - INFO - evaluating now!
+2023-12-20 22:09:03,260 - INFO - Epoch [95/100] train_loss: 14.3207, val_loss: 14.8369, lr: 0.001000, 36.67s
+2023-12-20 22:09:32,056 - INFO - epoch complete!
+2023-12-20 22:09:32,056 - INFO - evaluating now!
+2023-12-20 22:09:39,931 - INFO - Epoch [96/100] train_loss: 14.2783, val_loss: 15.3671, lr: 0.001000, 36.67s
+2023-12-20 22:10:08,831 - INFO - epoch complete!
+2023-12-20 22:10:08,831 - INFO - evaluating now!
+2023-12-20 22:10:16,719 - INFO - Epoch [97/100] train_loss: 14.2965, val_loss: 15.2227, lr: 0.001000, 36.79s
+2023-12-20 22:10:45,557 - INFO - epoch complete!
+2023-12-20 22:10:45,557 - INFO - evaluating now!
+2023-12-20 22:10:53,420 - INFO - Epoch [98/100] train_loss: 14.2798, val_loss: 14.8964, lr: 0.001000, 36.70s
+2023-12-20 22:11:22,187 - INFO - epoch complete!
+2023-12-20 22:11:22,187 - INFO - evaluating now!
+2023-12-20 22:11:30,063 - INFO - Epoch [99/100] train_loss: 14.2570, val_loss: 14.9865, lr: 0.001000, 36.64s
+2023-12-20 22:11:30,063 - INFO - Trained totally 100 epochs, average train time is 28.937s, average eval time is 7.914s
+2023-12-20 22:11:30,075 - INFO - Loaded model at 90
+2023-12-20 22:11:30,075 - INFO - Saved model at ./libcity/cache/1289/model_cache/BGCN_PeMS08.m
+2023-12-20 22:11:30,085 - INFO - Start evaluating ...
+2023-12-20 22:11:39,212 - INFO - Note that you select the single mode to evaluate!
+2023-12-20 22:11:39,213 - INFO - Evaluate result is saved at ./libcity/cache/1289/evaluate_cache/2023_12_20_22_11_39_BGCN_PeMS08.csv
+2023-12-20 22:11:39,217 - INFO - 
+          MAE  MAPE         MSE       RMSE  masked_MAE  masked_MAPE  masked_MSE  masked_RMSE        R2      EVAR
+1   12.632764   inf  392.788391  19.818890   12.648690     0.086429  387.828674    19.693367  0.981665  0.981692
+2   13.235548   inf  440.433563  20.986509   13.252764     0.089506  435.321991    20.864372  0.979439  0.979494
+3   13.731423   inf  479.955841  21.907894   13.750542     0.092853  475.329895    21.802061  0.977586  0.977601
+4   14.080503   inf  513.707825  22.665123   14.101809     0.092744  509.280670    22.567247  0.976006  0.976024
+5   14.447563   inf  544.128113  23.326553   14.470398     0.095326  539.785950    23.233294  0.974584  0.974604
+6   14.774393   inf  571.753418  23.911366   14.798519     0.096237  567.170898    23.815350  0.973290  0.973336
+7   15.150807   inf  601.142761  24.518213   15.174606     0.100445  596.836426    24.430237  0.971918  0.972044
+8   15.466364   inf  626.625183  25.032482   15.491892     0.100097  622.194458    24.943827  0.970722  0.970887
+9   15.716879   inf  645.358093  25.403898   15.742598     0.104447  641.406433    25.326004  0.969841  0.970023
+10  15.924071   inf  664.237000  25.772797   15.951300     0.104973  660.321716    25.696726  0.968958  0.969072
+11  16.231897   inf  685.693115  26.185743   16.256842     0.110976  681.885620    26.112940  0.967955  0.968050
+12  16.484932   inf  706.798035  26.585674   16.513779     0.109079  702.899292    26.512247  0.966967  0.967015
